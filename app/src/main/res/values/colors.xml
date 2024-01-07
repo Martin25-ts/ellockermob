@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="white">#FFFFFFFF</color>
+
+    <!--  Text black color  -->
+    <color name="black">#FF000000</color>
+    <color name="black1">#212121</color>
+    <color name="black2">#4A4A4A</color>
+    <color name="black3">#80000000</color>
+    <color name="black4">#3B3B3B</color>
+
+
+    <!-- Color for widget background  [orange color] -->
+    <color name="background_color">#FFF9E9</color>
+    <color name="orange1">#FFEAB6</color>
+    <color name="orange2">#FFDF92</color>
+</resources>

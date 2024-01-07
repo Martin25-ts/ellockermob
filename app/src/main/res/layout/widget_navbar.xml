@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="363dp"
+        android:layout_height="69dp"
+        android:background="@drawable/navbar"
+        android:orientation="horizontal"
+        android:gravity="center|left">
+
+        <TextView
+            android:id="@+id/tvhello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Hi, "
+            android:fontFamily="@font/nunitobold"
+            android:textSize="20sp"
+
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Martin"
+            android:fontFamily="@font/nunitolight"
+            android:textSize="20sp"
+            android:textColor="@color/orange1"
+            android:layout_gravity="center" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/ivhome"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/home" />
+
+            <ImageView
+                android:id="@+id/ivprofile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/profile"/>
+
+            <ImageView
+                android:id="@+id/ivlogout"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/logout"
+                android:layout_marginRight="15dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

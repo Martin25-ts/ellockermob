@@ -1,0 +1,57 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Ellocker" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="exampleToast_allert">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stFont">@font/nunitobold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#EAC645</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#EAC645</item>
+        <item name="stIconStart">@drawable/ic_allert</item>
+        <!-- <item name="stIconEnd">@drawable/ic</item> -->
+        <item name="stLength">LONG</item> <!-- LONG or SHORT -->
+        <item name="stGravity">top</item> <!-- top or left -->
+        <item name="stRadius">5dp</item>
+    </style>
+
+    <style name="exampleToast_error">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stFont">@font/nunitobold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#D65745</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#D65745</item>
+        <item name="stIconStart">@drawable/ic_error</item>
+        <!-- <item name="stIconEnd">@drawable/ic</item> -->
+        <item name="stLength">LONG</item> <!-- LONG or SHORT -->
+        <item name="stGravity">top</item> <!-- top or left -->
+        <item name="stRadius">5dp</item>
+    </style>
+
+    <style name="exampleToast_true">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stFont">@font/nunitobold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#55B938</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#55B938</item>
+        <item name="stIconStart">@drawable/ic_true</item>
+        <!-- <item name="stIconEnd">@drawable/ic</item> -->
+        <item name="stLength">LONG</item> <!-- LONG or SHORT -->
+        <item name="stGravity">top</item> <!-- top or left -->
+        <item name="stRadius">5dp</item>
+    </style>
+
+    <style name="Theme.Ellocker" parent="Base.Theme.Ellocker" />
+</resources>

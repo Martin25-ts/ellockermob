@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="20dp" /> <!-- Sesuaikan dengan radius yang Anda butuhkan -->
+        </shape>
+    </item>
+
+    <!-- Shadow -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#40000000" /> <!-- Warna dengan opacity 25% -->
+            <corners android:radius="20dp" /> <!-- Sesuaikan dengan radius yang Anda butuhkan -->
+        </shape>
+    </item>
+
+    <!-- Content -->
+    <item android:top="5dp" android:right="1dp" android:left="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/orange1" /> <!-- Sesuaikan dengan warna latar belakang yang Anda inginkan -->
+            <corners android:radius="20dp" /> <!-- Sesuaikan dengan radius yang Anda butuhkan -->
+        </shape>
+    </item>
+</layer-list>

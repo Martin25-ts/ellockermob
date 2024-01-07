@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        tools:context=".Register">
+
+        <ImageView
+            android:id="@+id/ivlogo"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="40dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilnamadepan"
+
+            android:layout_marginTop="53dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietnamadepan"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="textCapWords"
+
+                android:hint="Nama Depan"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilnamabelakang"
+
+            android:layout_marginTop="17dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietnamabelakang"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="textCapWords"
+
+                android:hint="Nama Belakang"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilnomorponsel"
+
+            android:layout_marginTop="17dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietnomorponsel"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="phone"
+
+                android:hint="Nomor Ponsel"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilemail"
+
+            android:layout_marginTop="17dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietemail"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="textEmailAddress"
+
+                android:hint="Email"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilpassword"
+
+            android:layout_marginTop="17dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietpassword"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="textPassword"
+
+
+
+                android:hint="Password"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:id="@+id/tilverifpassword"
+
+            android:layout_marginTop="17dp"
+
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+
+            app:boxStrokeColor="@color/orange1"
+
+            app:hintEnabled="false"
+
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+
+            app:boxBackgroundMode="none"
+            android:background="@drawable/input_dropshadow_20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietverifpassword"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitoregular"
+                android:inputType="textPassword"
+
+                android:hint="Verifikasi Password"
+                android:textColor="@color/black2"
+                android:textColorHint="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="23dp"
+            android:background="@drawable/rounded10"
+            android:backgroundTint="@color/orange2"
+            android:id="@+id/btndaftar"
+            android:fontFamily="@font/nunitobold"
+            android:textColor="@color/black2"
+            android:text="Daftar"
+            android:layout_width="305dp"
+            android:layout_height="43dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp">
+
+
+            <TextView
+                android:textColor="@color/black3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitobold"
+                android:text="Sudah punya akun? "/>
+
+            <TextView
+                android:layout_marginBottom="53dp"
+                android:id="@+id/tvlogin"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunitobold"
+                android:textColor="@color/black1"
+                android:text="Masuk!"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

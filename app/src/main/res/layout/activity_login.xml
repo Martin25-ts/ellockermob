@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/ivlogo"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
+        android:src="@drawable/logo"
+        android:layout_marginTop="40dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+
+        android:layout_marginTop="53dp"
+        android:id="@+id/tilemail"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+
+        app:boxStrokeColor="@color/orange1"
+
+        app:hintEnabled="false"
+
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:boxBackgroundMode="none"
+        android:background="@drawable/input_dropshadow_20">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/tietemail"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitoregular"
+            android:hint="Email atau Ponsel"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black2"
+            android:textColorHint="@color/black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+        android:layout_marginTop="17dp"
+        android:id="@+id/tilpassword"
+        android:layout_width="262dp"
+        android:layout_height="wrap_content"
+
+        app:boxStrokeColor="@color/orange1"
+
+        app:hintEnabled="false"
+
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/black2"
+
+
+
+        app:boxBackgroundMode="none"
+        android:background="@drawable/input_dropshadow_20">
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/tietpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitoregular"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black2"
+            android:textColorHint="@color/black"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_marginTop="63dp"
+        android:background="@drawable/rounded10"
+        android:id="@+id/btnmasuk"
+        android:fontFamily="@font/nunitobold"
+        android:textColor="@color/black2"
+        android:text="Masuk"
+        android:layout_width="305dp"
+        android:layout_height="43dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp">
+
+        <TextView
+            android:textColor="@color/black3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitobold"
+            android:text="Belum punya akun? "/>
+
+        <TextView
+            android:id="@+id/tvdaftar"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunitobold"
+            android:textColor="@color/black1"
+            android:text="Daftar!"/>
+
+    </LinearLayout>
+
+</LinearLayout>
