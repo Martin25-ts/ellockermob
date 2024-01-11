@@ -137,7 +137,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener,
 
 
         String data = params.toString();
-        String url = "http://192.168.100.148:6969" + "/register/mobile";
+        String url = Http.API + "register/mobile";
 
         new Thread(new Runnable() {
             @Override

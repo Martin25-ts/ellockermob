@@ -11,6 +11,8 @@ import java.net.URL;
 
 public class Http {
     Context context;
+
+    public static String API = "http://192.168.100.148:6969/api/";
     private String url, method = "GET", data = null, respone = null;
     private Integer statusCode = 0;
     private Boolean token = false;

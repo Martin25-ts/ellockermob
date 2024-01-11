@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.ellocker.api.AuthApi;
 import com.android.ellocker.channel.Http;
 import com.android.ellocker.channel.LocalStorage;
 import com.android.ellocker.helper.Validotor;
@@ -36,13 +38,11 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, V
         localStorage = new LocalStorage(Login.this);
 
         if(localStorage.getToken() != null && !localStorage.getToken().isEmpty()){
-            Log.d("Debug FC", "has token Login");
+
             pindahdashboard = new Intent(Login.this, Dashboard.class);
             startActivity(pindahdashboard);
-            Log.d("Debug FC", "has token block");
-        }
 
-        Log.d("Debug FC", "hasnt token login");
+        }
 
         ImageView ivlogo = findViewById(R.id.ivlogo);
         ivlogo.setImageResource(R.drawable.logo);
@@ -101,74 +101,59 @@ public class Login extends AppCompatActivity  implements View.OnClickListener, V
 
     private void checkLogin(String email, String password) {
         if(email.isEmpty() || password.isEmpty()){
-            StyleableToast.makeText(this, "Email atau Password Tidak Boleh Kosong", R.style.exampleToast_error).show();
+            StyleableToast.makeText(this, "Email atau Password Tidak Boleh Kosong", R.style.exampleToast_allert).show();
 
         }else{
-            sendLogin();
-        }
-    }
+            AuthApi authApi = new AuthApi(this);
+            authApi.sendLogin(email, password);
 
-    private void sendLogin() {
-        JSONObject params = new JSONObject();
 
-        try {
-            params.put("username", tietemail.getText().toString());
-            params.put("password", tietpassword.getText().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Integer code = authApi.getHttpCallback().getStatusCode();
 
-        String data = params.toString();
-        String url = "http://192.168.100.148:6969/api/login/mobile";
+                    if (code >= 200 && code <= 299){
+                        try {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+                            JSONObject response = new JSONObject(authApi.getHttpCallback().getRespone());
 
-                Http http = new Http(Login.this,url);
-                http.setMethod("POST");
-                http.setData(data);
-                http.send();
+                            String token = response.getString("token");
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                            localStorage.setToken(token);
 
-                        String msg;
-                        Integer code = http.getStatusCode();
-                        if (code == 200){
-                            try {
-                                JSONObject response = new JSONObject(http.getRespone());
-                                String token = response.getString("token");
+                            StyleableToast.makeText(Login.this,response.getString("message"),R.style.exampleToast_true).show();
 
-                                localStorage.setToken(token);
+                            pindahdashboard = new Intent(Login.this, Dashboard.class);
 
-                                StyleableToast.makeText(Login.this,"Berhasil Login",R.style.exampleToast_true).show();
+                            startActivity(pindahdashboard);
 
-                                pindahdashboard = new Intent(Login.this, Dashboard.class);
-                                startActivity(pindahdashboard);
-
-                                finish();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }else if (code == 422){
-                            try {
-                                JSONObject response = new JSONObject(http.getRespone());
-                                msg = response.getString("message");
-                                StyleableToast.makeText(Login.this,msg,R.style.exampleToast_error).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }else if(code == 401){
-                            StyleableToast.makeText(Login.this,"Email atau Password Salah",R.style.exampleToast_error).show();
-                        }else {
-                            StyleableToast.makeText(Login.this,"ERROR CODE : " + code,R.style.exampleToast_error).show();
+                            finish();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("CHECK+LOGIN", "run: " + e.getMessage());
                         }
-                    }
-                });
+                    }else if (code >= 400 && code <= 499){
+                        try {
 
-            }
-        }).start();
+                            JSONObject response = new JSONObject(authApi.getHttpCallback().getRespone());
+                            StyleableToast.makeText(Login.this,response.getString("error"),R.style.exampleToast_error).show();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else {
+                        StyleableToast.makeText(Login.this,"ERROR CODE : " + code,R.style.exampleToast_error).show();
+                    }
+
+                }
+            },500);
+
+
+        }
+
     }
+
+
 }

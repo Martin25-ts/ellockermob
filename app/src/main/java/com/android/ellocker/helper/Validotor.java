@@ -16,6 +16,14 @@ public interface Validotor {
         }
     }
 
+    default boolean toBoolean(int data){
+        if(data == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     default void validateEmail(String email, TextInputEditText tietemail) {
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             tietemail.setError("Invalid email format");

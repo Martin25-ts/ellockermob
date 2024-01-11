@@ -2,36 +2,49 @@ package com.android.ellocker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.ellocker.adapter.ListLockerAdapter;
+import com.android.ellocker.api.AuthApi;
+import com.android.ellocker.api.UserApi;
 import com.android.ellocker.channel.Http;
 import com.android.ellocker.channel.LocalStorage;
+import com.android.ellocker.transaction.Transaction;
 import com.android.ellocker.user.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
-    User userDashboard;
-    TextView tvemail, tvnamadepan, tvnamabelakang,tvnomorponsel, tvusername;
+    TextView tvusername;
 
     ImageView ivhome,ivprofile,ivlogout;
-    Intent pindahlogin,check;
+    Intent pindahlogin;
     LocalStorage localStorage;
+
+    List<Transaction> lockerList = new ArrayList<Transaction>();
+    RecyclerView rvlocker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        Log.d("Debug FC", "Dashboard");
 
         tvusername = findViewById(R.id.tvusername);
         ivhome = findViewById(R.id.ivhome);
@@ -41,106 +54,70 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
         localStorage = new LocalStorage(this);
 
+        // Load For User Info
+        setUser();
 
-        getUser(new UserCallback() {
-            @Override
-            public void onUserReceived(User user) {
-                userDashboard = setUserInfo(user);
-            }
 
-            @Override
-            public void onFailure(String message) {
-
-                doLogout(message);
-
-            }
-        });
+        // Load for user locker list
+        getLockerList();
 
     }
 
-    private void getUser(UserCallback userCallback) {
+    public void createListLocker(){
+        rvlocker = findViewById(R.id.rvlocker);
+        rvlocker.setHasFixedSize(true);
+        rvlocker.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL,
+                false));
 
-        JSONObject params = new JSONObject();
+        ListLockerAdapter listlockeradapter = new ListLockerAdapter(lockerList);
+        rvlocker.setAdapter(listlockeradapter);
+    }
 
-        try {
-            params.put("api_token", localStorage.getToken());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setUser(){
+        Handler handler = new Handler();
+        UserApi userapi = new UserApi(this);
+        userapi.getUser(localStorage.getToken());
 
-        String data = params.toString();
-        String url = "http://192.168.100.148:6969/api" + "/user/mobile";
-
-        new Thread(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Http http = new Http(Dashboard.this,url);
-                http.setData(data);
-                http.setMethod("POST");
-                http.send();
+                Integer code  = userapi.getHttpCallBack().getStatusCode();
+                if (code >= 200 && code <= 299){
+                    try {
+                        JSONObject response = new JSONObject(userapi.getHttpCallBack().getRespone());
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Integer code = http.getStatusCode();
+                        User user = new User(response.getString("user_id"),
+                                response.getString("front_name"),
+                                response.getString("last_name"),
+                                response.getString("email"),
+                                response.getString("user_phone"),
+                                Integer.parseInt(response.getString("role_id")),
+                                Integer.parseInt(response.getString("status_user_id")));
 
-
-                        if(code == 200) {
-                            try {
-                                JSONObject response = new JSONObject(http.getRespone());
-
-                                User user = new User(response.getString("user_id"),
-                                        response.getString("front_name"),
-                                        response.getString("last_name"),
-                                        response.getString("email"),
-                                        response.getString("user_phone"),
-                                        Integer.parseInt(response.getString("role_id")),
-                                        Integer.parseInt(response.getString("status_user_id")));
-
-                                userCallback.onUserReceived(user);
+                        userapi.setUser(user);
+                        userapi.setUserInfo(tvusername);
 
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                userCallback.onFailure("Error parsing JSON");
-                            }
-                        }else if(code == 401){
-                            try {
-                                JSONObject response = new JSONObject(http.getRespone());
+                        AuthApi authApi = new AuthApi(Dashboard.this);
+                        authApi.doLogout(localStorage.getToken());
+                        localStorage.clearToken();
 
-                                StyleableToast.makeText(Dashboard.this, response.getString("message"),R.style.exampleToast_allert).show();
-
-                                localStorage.clearToken();
-
-                                pindahlogin = new Intent(Dashboard.this,Login.class);
-                                startActivity(pindahlogin);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }else {
-
-                            try {
-                                JSONObject response = new JSONObject(http.getRespone());
-
-                                localStorage.clearToken();
-
-                                pindahlogin = new Intent(Dashboard.this,Login.class);
-                                startActivity(pindahlogin);
-                                userCallback.onFailure("System Failed : " + response.getString("message") + " " + code);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-
-                            }
-                        }
+                        StyleableToast.makeText(Dashboard.this,"Gagal mendapatkan user info",R.style.exampleToast_error).show();
+                        pindahlogin = new Intent(Dashboard.this, Login.class);
+                        startActivity(pindahlogin);
                     }
-                });
+                }
             }
-        }).start();
+        },500);
+
     }
 
-    private void doLogout(String message){
+    public void getLockerList(){
+
         JSONObject params = new JSONObject();
 
         try {
@@ -148,55 +125,86 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         String data = params.toString();
-        String url = "http://192.168.100.148:6969/api/logout/mobile";
+        String url = Http.API + "user/getListLocker";
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 Http http = new Http(Dashboard.this,url);
-                http.setMethod("POST");
                 http.setData(data);
-                http.setToken(true);
+                http.setMethod("POST");
                 http.send();
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Integer code = http.getStatusCode();
+
                         if(code == 200){
-                            localStorage.clearToken();
-                            StyleableToast.makeText(Dashboard.this, message, R.style.exampleToast_true).show();
-                            pindahlogin = new Intent(Dashboard.this,Login.class);
-                            startActivity(pindahlogin);
-                        }else{
-                            StyleableToast.makeText(Dashboard.this,"Gagal Logout" + message, R.style.exampleToast_error).show();
+                            try {
+                                JSONObject response = new JSONObject(http.getRespone());
+                                JSONArray transaction = response.getJSONArray("transaction");
 
+                                lockerList.clear();
+
+                                for (int i = 0;  i < transaction.length(); i++){
+
+                                    try {
+
+                                        JSONObject transactionObject = transaction.getJSONObject(i);
+
+
+                                        lockerList.add(new Transaction(String.valueOf(String.valueOf(transactionObject.getInt("locker_id"))),
+                                                transactionObject.getString("locker_number"),
+                                                transactionObject.getString("locker_size"),
+                                                transactionObject.getInt("status_door") == 1,
+                                                transactionObject.getString("location_name"),
+                                                transactionObject.getString("location_url"),
+                                                String.valueOf(transactionObject.getInt("detial_id")),
+                                                transactionObject.getInt("duration"),
+                                                String.valueOf(transactionObject.getInt("transaction_id")),
+                                                transactionObject.getString("transaction_date"),
+                                                String.valueOf(transactionObject.getInt("user_id")),
+                                                String.valueOf(transactionObject.getInt("status_transaction_id"))));
+
+                                    }catch (JSONException e){
+                                        e.printStackTrace();
+                                        Log.e("JSON ERROR", e.getMessage());
+                                        Log.e("JSON ERROR", "Error creating JSONObject at index " + i);
+                                    }
+
+
+                                }
+
+                                createListLocker();
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d("CHECK+API", "ERROR CODE: " + code);
+                            }
+                        }else{
+                            Log.d("CHECK+API", "ERROR CODE: " + code);
                         }
                     }
                 });
             }
         }).start();
-    }
-
-    private User setUserInfo(User user) {
-        String[] frontname = user.getFrontName().split(" ");
-        String username = frontname[0] + " " + user.getLastName();
-
-        tvusername.setText(username);
-
-        return user;
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.ivlogout){
-            doLogout("Akan di alihkan ke login");
+            AuthApi authApi = new AuthApi(Dashboard.this);
+            authApi.doLogout(localStorage.getToken());
+
+            localStorage.clearToken();
+            pindahlogin = new Intent(Dashboard.this, Login.class);
+            startActivity(pindahlogin);
         }
     }
 
-    public interface UserCallback {
-        void onUserReceived(User user);
-        void onFailure(String message);
-    }
+
+
 }

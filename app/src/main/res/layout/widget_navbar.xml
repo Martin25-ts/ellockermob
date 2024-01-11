@@ -3,9 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center">
-
+    <!--        android:layout_width="363dp"-->
+    <!--        android:layout_height="69dp"-->
     <LinearLayout
-        android:layout_width="363dp"
+
+        android:layout_width="match_parent"
         android:layout_height="69dp"
         android:background="@drawable/navbar"
         android:orientation="horizontal"
@@ -27,7 +29,7 @@
             android:id="@+id/tvusername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Martin"
+            android:text="Username"
             android:fontFamily="@font/nunitolight"
             android:textSize="20sp"
             android:textColor="@color/orange1"
@@ -37,12 +39,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
+            android:gravity="right|center">
 
             <ImageView
                 android:id="@+id/ivhome"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/home" />
 
             <ImageView
@@ -54,8 +56,8 @@
 
             <ImageView
                 android:id="@+id/ivlogout"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/logout"
                 android:layout_marginRight="15dp"/>
