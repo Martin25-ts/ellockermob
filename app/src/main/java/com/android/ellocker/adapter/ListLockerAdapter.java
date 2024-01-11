@@ -1,5 +1,7 @@
     package com.android.ellocker.adapter;
 
+    import android.app.Activity;
+    import android.content.Intent;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
@@ -7,6 +9,7 @@
     import androidx.annotation.NonNull;
     import androidx.recyclerview.widget.RecyclerView;
 
+    import com.android.ellocker.Locker;
     import com.android.ellocker.R;
     import com.android.ellocker.holder.ListLockerHolder;
     import com.android.ellocker.transaction.Transaction;
@@ -29,12 +32,28 @@
             return new ListLockerHolder(view);
         }
 
-        @Override
-        public void onBindViewHolder(@NonNull ListLockerHolder holder, int position) {
-            holder.getTvlockernumber().setText(String.valueOf(lockerlist.get(position).getLocker_number()));
-            holder.getTvlockerlocation().setText(String.valueOf(lockerlist.get(position).getLocation_name()));
-            holder.getTvlockersize().setText(String.valueOf(lockerlist.get(position).getLocker_size()));
-        }
+            @Override
+            public void onBindViewHolder(@NonNull ListLockerHolder holder, int position) {
+
+                Transaction locker = lockerlist.get(position);
+
+
+
+                holder.getTvlockernumber().setText(String.valueOf(locker.getLocker_number()));
+                holder.getTvlockerlocation().setText(String.valueOf(locker.getLocation_name()));
+                holder.getTvlockersize().setText(String.valueOf(locker.getLocker_size()));
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent pindahLocker = new Intent(v.getContext(), Locker.class);
+                        pindahLocker.putExtra("TRANSACTION", locker);
+                        v.getContext().startActivity(pindahLocker);
+                    }
+                });
+
+
+            }
 
         @Override
         public int getItemCount() {

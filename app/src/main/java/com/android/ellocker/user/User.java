@@ -1,5 +1,9 @@
 package com.android.ellocker.user;
-public class User {
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable {
 
     private String userid = "-1";
     private String frontName;
@@ -10,6 +14,64 @@ public class User {
     private Integer role_id;
 
     private Integer status_user_id;
+
+
+
+    protected User(Parcel in) {
+        userid = in.readString();
+        frontName = in.readString();
+        lastName = in.readString();
+        email = in.readString();
+        nomorPonsel = in.readString();
+        if (in.readByte() == 0) {
+            role_id = null;
+        } else {
+            role_id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            status_user_id = null;
+        } else {
+            status_user_id = in.readInt();
+        }
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userid);
+        dest.writeString(frontName);
+        dest.writeString(lastName);
+        dest.writeString(email);
+        dest.writeString(nomorPonsel);
+        if (role_id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(role_id);
+        }
+        if (status_user_id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(status_user_id);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     private User getUser(User user){
         return user;

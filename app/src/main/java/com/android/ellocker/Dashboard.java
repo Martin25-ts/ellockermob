@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.android.ellocker.api.AuthApi;
 import com.android.ellocker.api.UserApi;
 import com.android.ellocker.channel.Http;
 import com.android.ellocker.channel.LocalStorage;
+import com.android.ellocker.helper.Clickable;
 import com.android.ellocker.transaction.Transaction;
 import com.android.ellocker.user.User;
 
@@ -30,7 +33,7 @@ import java.util.List;
 
 import io.github.muddz.styleabletoast.StyleableToast;
 
-public class Dashboard extends AppCompatActivity implements View.OnClickListener {
+public class Dashboard extends AppCompatActivity implements View.OnClickListener, Clickable {
 
     TextView tvusername;
 
@@ -39,7 +42,10 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     LocalStorage localStorage;
 
     List<Transaction> lockerList = new ArrayList<Transaction>();
+    SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView rvlocker;
+
+    UserApi userapi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +55,20 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         tvusername = findViewById(R.id.tvusername);
         ivhome = findViewById(R.id.ivhome);
         ivprofile = findViewById(R.id.ivprofile);
+        ivprofile.setOnClickListener(this);
         ivlogout = findViewById(R.id.ivlogout);
         ivlogout.setOnClickListener(this);
 
         localStorage = new LocalStorage(this);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Panggil metode untuk merefresh data Anda di sini
+                refreshData();
+            }
+        });
         // Load For User Info
         setUser();
 
@@ -61,6 +76,40 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         // Load for user locker list
         getLockerList();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+        // Load For User Info
+        setUser();
+        // Load for user locker list
+        getLockerList();
+    }
+
+    public void refreshData(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                // Load For User Info
+                setUser();
+
+                // Load for user locker list
+                getLockerList();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                // Panggil setRefreshing(false) di sini
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }.execute();
+
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     public void createListLocker(){
@@ -76,7 +125,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
 
     public void setUser(){
         Handler handler = new Handler();
-        UserApi userapi = new UserApi(this);
+        userapi = new UserApi(this);
         userapi.getUser(localStorage.getToken());
 
         handler.postDelayed(new Runnable() {
@@ -202,6 +251,10 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             localStorage.clearToken();
             pindahlogin = new Intent(Dashboard.this, Login.class);
             startActivity(pindahlogin);
+        } else if (v.getId() == R.id.ivprofile) {
+            pindahProfile(this, userapi.getUser());
+        } else if (v.getId() == R.id.llorder) {
+            pindahOrder(this);
         }
     }
 

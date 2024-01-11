@@ -1,6 +1,9 @@
 package com.android.ellocker.transaction;
 
-public class Locker {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Locker implements Parcelable {
     private String locker_Id;
     private String locker_number;
 
@@ -19,6 +22,43 @@ public class Locker {
         this.location_name = location_name;
         this.location_url = location_url;
     }
+
+    protected Locker(Parcel in) {
+        locker_Id = in.readString();
+        locker_number = in.readString();
+        locker_size = in.readString();
+        status_door = in.readInt() != 0;
+        location_name = in.readString();
+        location_url = in.readString();
+
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(locker_Id);
+        dest.writeString(locker_number);
+        dest.writeString(locker_size);
+        dest.writeInt(status_door ? 1 : 0);
+        dest.writeString(location_name);
+        dest.writeString(location_url);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Locker> CREATOR = new Creator<Locker>() {
+        @Override
+        public Locker createFromParcel(Parcel in) {
+            return new Locker(in);
+        }
+
+        @Override
+        public Locker[] newArray(int size) {
+            return new Locker[size];
+        }
+    };
 
     public String getLocation_name() {
         return location_name;

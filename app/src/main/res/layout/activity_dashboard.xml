@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,73 +11,79 @@
     android:gravity="center_horizontal"
     tools:context=".Dashboard">
 
-    <ImageView
-        android:id="@+id/ivlogo"
-        android:layout_width="164dp"
-        android:layout_height="164dp"
-        android:src="@drawable/logo"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="24dp"/>
-
-
-
-    <include layout="@layout/widget_navbar" />
-
-
-    <RelativeLayout
-        android:id="@+id/lncontent"
-        android:layout_marginTop="20dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/boxcontent"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivlogo"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="24dp"/>
+
+        <include layout="@layout/widget_navbar" />
 
         <RelativeLayout
-            android:paddingTop="28dp"
-            android:paddingBottom="28dp"
-            android:paddingRight="17dp"
-            android:paddingLeft="17dp"
-            android:layout_width="wrap_content"
-            android:layout_height="433dp"
+            android:id="@+id/lncontent"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/boxcontent"
             android:gravity="center">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <RelativeLayout
+                android:paddingTop="28dp"
+                android:paddingBottom="28dp"
+                android:paddingRight="17dp"
+                android:paddingLeft="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="433dp"
+                android:gravity="center">
 
-                android:id="@+id/rvlocker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <!-- SwipeRefreshLayout di sini -->
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/swipeRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/llorder"
-                android:layout_width="188dp"
-                android:layout_height="36dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/button"
-                android:gravity="center"
-                android:orientation="horizontal">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvlocker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="6dp"
-                    android:src="@drawable/icon_cart" />
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunitobold"
-                    android:text="Pesan"
-                    android:textColor="@color/black4"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llorder"
+                    android:layout_width="188dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/button"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@drawable/icon_cart" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunitobold"
+                        android:text="Pesan"
+                        android:textColor="@color/black4"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
         </RelativeLayout>
-
-
-
-
-    </RelativeLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

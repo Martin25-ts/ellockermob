@@ -1,8 +1,12 @@
 package com.android.ellocker.transaction;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Transaction extends TransactionDetail{
+import androidx.annotation.NonNull;
+
+public class Transaction extends TransactionDetail implements Parcelable {
     private String transaction_id;
     private String transaction_date;
     private String user_id;
@@ -16,6 +20,26 @@ public class Transaction extends TransactionDetail{
         this.user_id = user_id;
         this.status_transaction = status_transaction;
     }
+
+    protected Transaction(Parcel in) {
+        super(in);
+        transaction_id = in.readString();
+        transaction_date = in.readString();
+        user_id = in.readString();
+        status_transaction = in.readString();
+    }
+
+    public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+        @Override
+        public Transaction createFromParcel(Parcel in) {
+            return new Transaction(in);
+        }
+
+        @Override
+        public Transaction[] newArray(int size) {
+            return new Transaction[size];
+        }
+    };
 
     public String getTransaction_id() {
         return transaction_id;
@@ -53,5 +77,18 @@ public class Transaction extends TransactionDetail{
 
     public void setStatus_transaction(String status_transaction) {
         this.status_transaction = status_transaction;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(transaction_id);
+        dest.writeString(transaction_date);
+        dest.writeString(user_id);
+        dest.writeString(status_transaction);
     }
 }

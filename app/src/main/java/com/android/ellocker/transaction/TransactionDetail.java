@@ -1,6 +1,9 @@
 package com.android.ellocker.transaction;
 
-public class TransactionDetail extends Locker {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class TransactionDetail extends Locker implements Parcelable {
     private String detail_id;
     private Integer duration;
 
@@ -9,6 +12,39 @@ public class TransactionDetail extends Locker {
         this.detail_id = detail_id;
         this.duration = duration;
     }
+
+    protected TransactionDetail(Parcel in) {
+        super(in);
+        detail_id = in.readString();
+        duration = in.readInt();
+    }
+
+
+    public static final Creator<TransactionDetail> CREATOR = new Creator<TransactionDetail>() {
+        @Override
+        public TransactionDetail createFromParcel(Parcel in) {
+            return new TransactionDetail(in);
+        }
+
+        @Override
+        public TransactionDetail[] newArray(int size) {
+            return new TransactionDetail[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(detail_id);
+        dest.writeInt(duration);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+
 
     public String getDetail_id() {
         return detail_id;
