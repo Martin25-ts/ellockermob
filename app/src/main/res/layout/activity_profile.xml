@@ -1,9 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="28dp"
     tools:context=".Profile">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivlogo"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            android:src="@drawable/logo"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="24dp"/>
+
+        <include layout="@layout/widget_navbar" />
+
+        <RelativeLayout
+            android:id="@+id/lncontent"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/boxcontent"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="329dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="7dp">
+
+                <TextView
+                    android:id="@+id/personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PERSONAL PROFILE"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="17dp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        >
+
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Account ID"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="00000"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:paddingRight="13dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        android:layout_marginTop="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Username"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:paddingRight="13dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        android:layout_marginTop="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email@gmail.com"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:paddingRight="13dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        android:layout_marginTop="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0800000000"
+                            android:textColor="@color/grey"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:paddingRight="13dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PERSONAL PROFILE"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change Pin"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="13dp"
+                            android:src="@drawable/repeat"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/widget_info"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        >
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Change Password"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/nunitolight"
+                            android:textSize="15sp"
+                            android:layout_weight="1"
+                            android:paddingLeft="14dp"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="7dp"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="13dp"
+                            android:src="@drawable/repeat"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
